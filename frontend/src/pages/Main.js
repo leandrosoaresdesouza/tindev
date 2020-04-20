@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Main.css';
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import './Main.css'
 
-import api from '../services/api';
+import api from '../services/api'
 
-import logo from '../assets/logo.svg';
-import like from '../assets/like.svg';
-import dislike from '../assets/dislike.svg';
+import logo from '../assets/logo.svg'
+import like from '../assets/like.svg'
+import dislike from '../assets/dislike.svg'
 
 export default function Main({ match }) {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     async function loadUsers() {
@@ -19,26 +19,26 @@ export default function Main({ match }) {
         }
       })
 
-      setUsers(response.data);
+      setUsers(response.data)
     }
 
-    loadUsers();
-  }, [match.params.id]);
+    loadUsers()
+  }, [match.params.id])
 
   async function handleLike(id) {
     await api.post(`/devs/${id}/likes`, null, {
       headers: { user: match.params.id }
-    });
+    })
 
-    setUsers(users.filter(user => user._id !== id));
+    setUsers(users.filter(user => user._id !== id))
   }
 
   async function handleDislike(id) {
     await api.post(`/devs/${id}/dislikes`, null, {
       headers: { user: match.params.id }
-    });
+    })
 
-    setUsers(users.filter(user => user._id !== id));
+    setUsers(users.filter(user => user._id !== id))
   }
 
   return (
